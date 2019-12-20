@@ -4,6 +4,7 @@ ENV NGINX_VERSION 1.17.6
 ENV RTMP_COMMIT 3bf75232676da7eeff85dcd0fc831533a5eafe6b
 ENV VIDEO_JS_VERSION 7.7.3
 
+ADD 0001-ngx_rtmp_hls_cleanup_dir-Only-delete-files-older-tha.patch /tmp/
 RUN \
     addgroup -S nginx \
     && adduser -S -D -H -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx \
@@ -31,6 +32,7 @@ RUN \
     && cd nginx-${NGINX_VERSION} \
     && git clone https://github.com/sergey-dryabzhinsky/nginx-rtmp-module.git \
     && git -C nginx-rtmp-module checkout ${RTMP_COMMIT} \
+    && git -C nginx-rtmp-module am /tmp/0001-ngx_rtmp_hls_cleanup_dir-Only-delete-files-older-tha.patch \
     && ./configure \
         --user=nginx \
         --group=nginx \
