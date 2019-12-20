@@ -50,7 +50,7 @@ RUN \
     && ln -sf /dev/stdout /usr/local/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/nginx/logs/error.log
 
-EXPOSE 80
+EXPOSE 80/tcp 1935/tcp
 
 STOPSIGNAL SIGTERM
 
