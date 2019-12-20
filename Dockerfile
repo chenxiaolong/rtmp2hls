@@ -68,6 +68,6 @@ RUN cd /tmp \
     && rm -r "${temp_dir}"
 
 ADD nginx.conf /usr/local/nginx/conf/nginx.conf
-ADD index.html /usr/local/nginx/html/
+ADD index.html /usr/local/nginx/html/index.html
 
 CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
