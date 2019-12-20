@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Live Stream</title>
+
+        <link href="video-js.min.css" rel="stylesheet" />
+        <script src="video.min.js"></script>
+
+        <style type="text/css">
+            html, body {
+                height: 100%;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #player-container {
+                height: 100%;
+                width: 100%;
+            }
+
+            .hidden {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="player-container">
+            <video-js id="live-stream" class="vjs-big-play-centered vjs-fill" controls>
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    web browser that
+                    <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                </p>
+            </video-js>
+        </div>
+        <div id="form-container" class="hidden">
+            <form id="stream-key-form">
+                Stream key:
+                <input type="text" name="stream_key">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </body>
+    <script>
+        var player = videojs('live-stream', {
+            liveui: true,
+            responsive: true,
+            userActions: {
+                hotkeys: {
+                    playPauseKey: function(event) {
+                        return false;
+                    }
+                },
+            },
+        });
+
+        player.player_.handleTechClick_ = function() {};
+
+        var urlParams = new URLSearchParams(window.location.search);
+        var streamKey = urlParams.get('stream_key');
+
+        if (streamKey) {
+            player.src([{
+                src: '/hls/' + streamKey + '.m3u8',
+                type: 'application/x-mpegURL',
+            }]);
+        } else {
+            player.hide();
+
+            var playerContainer = document.getElementById('player-container');
+            playerContainer.classList.add('hidden');
+
+            var formContainer = document.getElementById('form-container');
+            formContainer.classList.remove('hidden');
+        }
+    </script>
+</html>
