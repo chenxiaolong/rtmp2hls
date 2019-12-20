@@ -5,7 +5,7 @@ Subject: [PATCH] ngx_rtmp_hls_cleanup_dir: Only delete files older than 5
  times the playlist length
 
 The overhead of HLS meant that only keeping two times the playlist
-length caused in-used .ts files and even the playlist itself to be
+length caused in-use .ts files and even the playlist itself to be
 deleted.
 
 Signed-off-by: Andrew Gunnerson <andrewgunnerson@gmail.com>
