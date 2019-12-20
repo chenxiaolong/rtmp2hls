@@ -12,7 +12,7 @@ The image is intentionally very barebones and uncustomizable. I've only implemen
 <docker or podman> run --rm -it \
     -p 8080:80 \
     -p 1935:1935 \
-    chenxiaolong/rtmp2hls:0.1.0
+    chenxiaolong/rtmp2hls:0.1.1
 ```
 
 The source stream should be output to `rtmp://<hostname>/live/<your stream key>`. The HLS stream is made available at `http://<hostname>:8080/?stream_key=<your stream key>`.
