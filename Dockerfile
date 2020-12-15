@@ -1,8 +1,8 @@
-FROM alpine:3.10
+FROM alpine:3.12
 
-ENV NGINX_VERSION 1.17.6
+ENV NGINX_VERSION 1.19.6
 ENV RTMP_COMMIT 3bf75232676da7eeff85dcd0fc831533a5eafe6b
-ENV VIDEO_JS_VERSION 7.7.3
+ENV VIDEO_JS_VERSION 7.10.2
 
 ADD 0001-ngx_rtmp_hls_cleanup_dir-Only-delete-files-older-tha.patch /tmp/
 RUN \
@@ -32,6 +32,8 @@ RUN \
     && cd nginx-${NGINX_VERSION} \
     && git clone https://github.com/sergey-dryabzhinsky/nginx-rtmp-module.git \
     && git -C nginx-rtmp-module checkout ${RTMP_COMMIT} \
+    && git -C nginx-rtmp-module config user.name none \
+    && git -C nginx-rtmp-module config user.email none@none \
     && git -C nginx-rtmp-module am /tmp/0001-ngx_rtmp_hls_cleanup_dir-Only-delete-files-older-tha.patch \
     && ./configure \
         --user=nginx \
